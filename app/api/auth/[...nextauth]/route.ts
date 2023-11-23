@@ -10,6 +10,14 @@ const clerkProvider = {
     url: `${process.env.CLERK_AUTH_URL}`,
     params: { scope: "email profile public_metadata" },
   },
+  profile(profile:any) {
+    return {
+      id: profile.user_id,
+      name: profile.name,
+      email: profile.email,
+      image: profile.picture,
+    }
+  },
   token: {
     url: `${process.env.CLERK_TOKEN_URL}`,
     async request(data:any){
@@ -36,6 +44,7 @@ const clerkProvider = {
   );
 
   const token = await res.json();
+  console.log('token', token)
   return {tokens: token};
     }
   },
@@ -50,7 +59,7 @@ const authOptions = {
     providers: [
       clerkProvider
     ],
-    // debug: true,
+    debug: true,
 } as unknown as NextAuthOptions
 
 const handler = NextAuth(authOptions);
