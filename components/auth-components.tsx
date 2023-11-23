@@ -1,16 +1,17 @@
-import { redirect } from "next/navigation"
+import { signIn, signOut } from "next-auth/react"
 
 export function SignIn({
   provider,
 }: { provider?: string }) {
   return (
-    <form
-      action={async () => {
-        "use server"
-        redirect("api/auth/signin")
-      }}
-    >
-      <button>Sign In</button>
-    </form>
+    <button onClick={()=> signIn('clerkprovider')}>Sign In</button>
   )
 }
+
+export function SignOut({
+    provider,
+  }: { provider?: string }) {
+    return (
+      <button onClick={()=> signOut()}>Sign Out</button>
+    )
+  }
